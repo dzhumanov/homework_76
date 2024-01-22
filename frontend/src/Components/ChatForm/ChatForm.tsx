@@ -41,10 +41,14 @@ const ChatForm: React.FC<Props> = ({ onStopInterval }) => {
   };
 
   return (
-    <Paper elevation={3} style={{ padding: 20, marginTop: '30px', backgroundColor: "white" }}>
+    <Paper
+      elevation={3}
+      style={{ padding: 20, marginTop: "30px", backgroundColor: "white" }}
+    >
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
           <TextField
+            required
             id="text"
             label="Type your message"
             multiline
@@ -55,6 +59,7 @@ const ChatForm: React.FC<Props> = ({ onStopInterval }) => {
             style={{ resize: "none" }}
           />
           <TextField
+            required
             id="author"
             label="Type your name"
             type="text"
