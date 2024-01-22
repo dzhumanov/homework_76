@@ -1,0 +1,6 @@
+body {
+    background: url(public/Desktop.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+}
