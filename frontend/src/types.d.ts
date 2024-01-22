@@ -1,7 +1,7 @@
 export interface MessageProps {
   author: string;
   message: string;
-  datetime: number;
+  date: string;
 }
 
 export interface Message {

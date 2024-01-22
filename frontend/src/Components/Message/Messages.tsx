@@ -38,7 +38,7 @@ const Messages: React.FC<Props> = ({ Messages }) => {
           key={Math.random()}
           author={messageItem.author}
           message={messageItem.message}
-          datetime={messageItem.datetime}
+          date={messageItem.date}
         />
       ))}
     </Paper>
