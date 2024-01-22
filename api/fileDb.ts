@@ -1,10 +1,16 @@
 import { promises as fs } from "fs";
-import { Message } from "./types";
+import { Message, MessageShort } from "./types";
 import crypto from "crypto";
 
 const fileName = "./db.json";
 
 let data: Message[] = [];
+
+type Filter = {
+  datetime?: {
+    $gt: Date;
+  };
+};
 
 const fileDb = {
   async init() {
@@ -15,12 +21,22 @@ const fileDb = {
       data = [];
     }
   },
-  async getItems() {
-    return data;
+  async getItems(filter?: Filter) {
+    if (!filter || !filter.datetime) {
+      return data.slice(0, 30);
+    }
+
+    const filteredMessages = data.filter((message) => {
+      const messageDate = new Date(message.date);
+      return messageDate > filter.datetime!.$gt;
+    });
+
+    return filteredMessages.slice(0, 30);
   },
-  async addItem(item: Message) {
+  async addItem(item: MessageShort) {
     const id = crypto.randomUUID();
-    const message = { id, ...item };
+    const date = new Date().toISOString();
+    const message = { id, date, ...item };
     data.push(message);
     await this.save();
 
