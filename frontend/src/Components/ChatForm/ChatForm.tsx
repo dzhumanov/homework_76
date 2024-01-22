@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import { Message } from "../../types";
+import axiosApi from "../../axiosApi";
+import { Paper } from "@mui/material";
 
 interface Props {
   onStopInterval: () => void;
@@ -10,25 +15,12 @@ const ChatForm: React.FC<Props> = ({ onStopInterval }) => {
   const [author, setAuthor] = useState("");
 
   const sendMessage = async () => {
-    const url = "http://146.185.154.90:8000/messages";
-    const data = new URLSearchParams();
-    data.set("message", text);
-    data.set("author", author);
-
-    try {
-      const response = await fetch(url, {
-        method: "post",
-        body: data,
-      });
-
-      if (response.ok) {
-        onStopInterval();
-      } else {
-        console.error("Failed to send message");
-      }
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
+    const messageObj: Message = {
+      author: author,
+      message: text,
+    };
+    await axiosApi.post("/messages", messageObj);
+    onStopInterval();
   };
 
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,29 +41,33 @@ const ChatForm: React.FC<Props> = ({ onStopInterval }) => {
   };
 
   return (
-    <>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3">
-          <Form.Label>Type your message</Form.Label>
-          <Form.Control
+    <Paper elevation={3} style={{ padding: 20, marginTop: '30px', backgroundColor: "white" }}>
+      <form onSubmit={handleSubmit}>
+        <Stack spacing={2}>
+          <TextField
             id="text"
-            as="textarea"
+            label="Type your message"
+            multiline
             rows={3}
             value={text}
             onChange={handleChangeText}
+            fullWidth
             style={{ resize: "none" }}
           />
-          <Form.Label>Type your name</Form.Label>
-          <Form.Control
+          <TextField
+            id="author"
+            label="Type your name"
             type="text"
+            value={author}
             onChange={handleChangeAuthor}
-          ></Form.Control>
-        </Form.Group>
-        <button type="submit" className="btn btn-primary">
-          Send
-        </button>
-      </Form>
-    </>
+            fullWidth
+          />
+          <Button type="submit" variant="contained" color="primary">
+            Send
+          </Button>
+        </Stack>
+      </form>
+    </Paper>
   );
 };
 

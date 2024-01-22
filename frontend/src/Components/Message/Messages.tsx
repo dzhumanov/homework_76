@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MessageProps } from "../../types";
 import Message from "./Message";
+import { Paper } from "@mui/material";
 
 interface Props {
   Messages: MessageProps[];
@@ -28,7 +29,7 @@ const Messages: React.FC<Props> = ({ Messages }) => {
   }, [Messages]);
 
   return (
-    <div
+    <Paper
       ref={messagesContainerRef}
       style={{ maxHeight: "440px", overflowY: "auto" }}
     >
@@ -40,7 +41,7 @@ const Messages: React.FC<Props> = ({ Messages }) => {
           datetime={messageItem.datetime}
         />
       ))}
-    </div>
+    </Paper>
   );
 };
 

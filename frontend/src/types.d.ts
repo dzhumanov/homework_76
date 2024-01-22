@@ -3,3 +3,8 @@ export interface MessageProps {
   message: string;
   datetime: number;
 }
+
+export interface Message {
+  author: string;
+  message: string;
+}

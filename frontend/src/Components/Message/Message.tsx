@@ -1,5 +1,8 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 import { MessageProps } from "../../types";
 
 const Message: React.FC<MessageProps> = ({ author, message, datetime }) => {
@@ -8,17 +11,14 @@ const Message: React.FC<MessageProps> = ({ author, message, datetime }) => {
   let secondsString: string = seconds < 10 ? `0${seconds}` : `${seconds}`;
 
   return (
-    <Card className="mb-3 mt-3">
-      <Card.Header className="d-flex justify-content-between">
-        <h4>{author}</h4>
-        <h4>
-          Date: {date.getDate()}.{date.getMonth()},{" "}
-          {date.getHours()}:{date.getMinutes()}:{secondsString}
-        </h4>
-      </Card.Header>
-      <Card.Body>
-        <Card.Text>{message}</Card.Text>
-      </Card.Body>
+    <Card sx={{ marginBottom: 3, marginTop: 3 }}>
+      <CardHeader
+        title={author}
+        subheader={`Date: ${date.getDate()}.${date.getMonth()}, ${date.getHours()}:${date.getMinutes()}:${secondsString}`}
+      />
+      <CardContent>
+        <Typography variant="body1">{message}</Typography>
+      </CardContent>
     </Card>
   );
 };
