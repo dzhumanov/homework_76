@@ -6,11 +6,8 @@ import { Message } from "../../types";
 import axiosApi from "../../axiosApi";
 import { Paper } from "@mui/material";
 
-interface Props {
-  onStopInterval: () => void;
-}
 
-const ChatForm: React.FC<Props> = ({ onStopInterval }) => {
+const ChatForm: React.FC = () => {
   const [text, setText] = useState("");
   const [author, setAuthor] = useState("");
 
@@ -20,7 +17,6 @@ const ChatForm: React.FC<Props> = ({ onStopInterval }) => {
       message: text,
     };
     await axiosApi.post("/messages", messageObj);
-    onStopInterval();
   };
 
   const handleChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

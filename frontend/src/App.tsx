@@ -4,7 +4,7 @@ import Messages from "./Components/Message/Messages";
 import { MessageProps } from "./types";
 import axiosApi from "./axiosApi";
 
-const url:string = '/messages';
+const url: string = "/messages";
 
 function App() {
   const [messages, setMessages] = useState<MessageProps[]>();
@@ -22,7 +22,7 @@ function App() {
   const startInterval = () => {
     const id = setInterval(() => {
       void fetchMessages(url);
-    }, 3000);
+    }, 5000);
     setIntervalId(id);
   };
 
@@ -45,7 +45,7 @@ function App() {
   return (
     <div className="container w-50 pt-3">
       <Messages Messages={messages || []} />
-      <ChatForm onStopInterval={stopInterval} />
+      <ChatForm/>
     </div>
   );
 }
